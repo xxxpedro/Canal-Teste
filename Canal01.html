@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Canal Ao Vivo</title>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<style>
+html,body{
+    margin:0;
+    padding:0;
+    background:#000;
+    height:100%;
+}
+video{
+    width:100%;
+    height:100vh;
+}
+</style>
+</head>
+<body>
+<video id="video" controls autoplay playsinline webkit-playsinline></video>
+<script>
+const video = document.getElementById('video');
+const videoSrc = 'http://172.16.118.106:40070/0.m3u8';
+
+if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    video.src = videoSrc;
+} else if (Hls.isSupported()) {
+    const hls = new Hls();
+    hls.loadSource(videoSrc);
+    hls.attachMedia(video);
+}
+</script>
+</body>
+</html>
